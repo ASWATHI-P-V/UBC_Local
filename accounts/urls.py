@@ -6,4 +6,7 @@ urlpatterns = [
     path('verify-otp/', views.VerifyPhoneOTP.as_view()),
     path('signup/', views.SignupRequest.as_view()),
     path('finalize-signup/', views.FinalizeSignup.as_view()), 
+    path('profile/', views.ProfileView.as_view()),
 ]
+
+

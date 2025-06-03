@@ -6,8 +6,10 @@ from rest_framework import status
 from .models import User
 from .utils import generate_otp
 from django.utils import timezone
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserProfileUpdateSerializer
 from .utils import get_tokens_for_user
+from rest_framework.permissions import IsAuthenticated
+
 
 
 def api_response(success, message, data=None, status_code=status.HTTP_200_OK):
@@ -135,3 +137,25 @@ class FinalizeSignup(APIView):
             "user": user_data
         })
 
+
+
+
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        user = request.user
+        serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "message": "Profile updated successfully",
+                "data": serializer.data
+            })
+        return Response({
+            "success": False,
+            "message": "Validation error",
+            "data": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)

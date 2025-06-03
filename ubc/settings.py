@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(_kijww=(-u08b-&jv#7vi35ghj1amjh^9-swh)dtbn$c_v9bf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['ubc.ebsgl.com ']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -71,13 +71,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ubc.wsgi.application'
 
+import os
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/home/ebs15/Documents/EBS/venv/UBC/ubc/my.cnf',
-        },
+        'NAME': 'ubc_db',
+        'USER': 'root',
+        'PASSWORD':'Aswathi@123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
